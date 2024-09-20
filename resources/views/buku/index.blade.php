@@ -38,8 +38,6 @@
                     <td>
                         <!-- Tombol Edit Buku -->
                         <form action="{{ route('buku.edit', $buku->id) }}" method="PUT">
-                            @csrf
-                            @method('UPDATE')
                             <button type="submit"
                             class="btn btn-warning">Edit</button>
                         </form> 
