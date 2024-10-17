@@ -1,3 +1,5 @@
+@if(count($data_buku))
+    <div class="alert alert-success">Ditemukan <strong>{{count($data_buku)}}</strong> data dengan kata: <strong>{{$cari}}</strong></div>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,8 +62,10 @@
     <!-- Menampilkan jumlah data buku -->
     {{-- <p>Jumlah Buku: {{ $jumlah_buku }}</p> --}}
 
-    <!-- Menampilkan total harga semua buku -->
-    <p>Total Harga Semua Buku: Rp. {{ number_format($total_harga, 2, ',', '.') }}</p>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
+@else
+    <div class="alert alert-warning"><h4>Data {{$cari}} tidak ditemukan</h4>
+    <a href="/buku" class="btn btn-warning">Kembali</a></div>
+@endif
