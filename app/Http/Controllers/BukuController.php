@@ -27,7 +27,7 @@ class BukuController extends Controller
         $total_harga = Buku::sum('harga');
 
         // Mengirim data ke view
-        return view('buku.index', compact('data_buku', 'no', 'jumlah_buku', 'total_harga'));
+        return view('auth.dashboard', compact('data_buku', 'no', 'jumlah_buku', 'total_harga'));
     }
 
     public function search(Request $request){
