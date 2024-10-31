@@ -17,11 +17,14 @@
                     </div>
                 @endif
 
-                <form action="{{route('buku.search')}}" method="get">@csrf
-                    <input type="text" name="kata" class="form-control" placeholder="Cari ..." style="width: 30%;
-                    display: inline; margin-top: 10px; margin-bottom: 10px; float: right;">
-                </form>
-                <a href="{{ route('buku.create') }}" class="btn btn-primary float-end">Tambah Buku</a>
+                @if (Auth::check() && Auth::user()->level == 'admin')
+                <div class="mb-3 d-flex justify-content-between align-items-center">
+                    <a href="{{ route('buku.create') }}" class="btn btn-primary float-end ">Tambah Buku</a>
+                    <form action="{{route('buku.search')}}" method="get">@csrf
+                        <input type="text" name="kata" class="form-control" placeholder="Cari ..." style="width: 100%;
+                        display: inline; margin-top: 10px; margin-bottom: 10px; float: right;">
+                    </form>
+                </div>
                     <table class="table table-stripped">
                         <thead>
                             <tr>
@@ -34,6 +37,7 @@
                             </tr>
                         </thead>
                         <tbody>
+
                             @foreach($data_buku as $index => $buku)
                                 <tr>
                                     <td>{{ $index+1 }}</td>
@@ -58,6 +62,7 @@
                                     </td>
                                 </tr>
                             @endforeach
+                @endif
                             @if(Session::has('pesan'))
                                 <div class="alert alert-success">{{Session::get('pesan')}}</div>
                             @endif

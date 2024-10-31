@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Buku;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BukuController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('admin');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -53,18 +59,19 @@ class BukuController extends Controller
     public function store(Request $request)
     {
         // dd($request); untuk cek bug fixing
-        // $buku = new Buku();
-        // $buku->judul = $request->judul;
-        // $buku->penulis = $request->penulis;
-        // $buku->harga = $request->harga;
-        // $buku->tgl_terbit = $request->tanggal_terbit;
-        // $buku->save();
+
         $this->validate($request,[
             'judul' => 'required|string',
             'penulis' => 'required|string|max:30',
             'harga' => 'required|numeric',
             'tanggal_terbit' => 'required|date'
         ]);
+        $buku = new Buku();
+        $buku->judul = $request->judul;
+        $buku->penulis = $request->penulis;
+        $buku->harga = $request->harga;
+        $buku->tgl_terbit = $request->tanggal_terbit;
+        $buku->save();
 
         // return redirect()->route('buku.index');
         return redirect('/buku')->with('pesan','Data Buku Berhasil di Simpan');
