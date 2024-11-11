@@ -13,7 +13,7 @@
     <body>
         <div class="container">
             <h4>Tambah Buku</h4>
-            <form method="post" action="{{route('buku.store')}}">
+            <form method="post" action="{{route('buku.store')}}" enctype="multipart/form-data">
                 @csrf
                 <div>Judul <input type="text" name="judul" class="form-control"></div>
                 <div>Penulis <input type="text" name="penulis" class="form-control"></div>
@@ -21,6 +21,16 @@
                 <div>Tanggal Terbit
                     <input type="text" name="tanggal_terbit" class="form-control date">
                 </div>
+                <div class="mb-3">
+                    <label for="thumbnail" class="form-label">Upload Thumbnail</label>
+                    <input type="file" name="thumbnail" class="form-control" accept="image/*">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Upload Gallery Images</label>
+                    <input type="file" name="gallery[]" class="form-control" accept="image/*" multiple>
+                </div>
+
                 <button type="submit" class="btn btn-primary mt-3">Simpan</button>
                 <a href="{{'/buku'}}" class="btn btn-secondary mt-3">Kembali</a>
             </form>

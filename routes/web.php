@@ -31,7 +31,12 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/buku/{id}/edit', [BukuController::class, 'edit'])->name('buku.edit');
     Route::put('/buku/{id}', [BukuController::class, 'update'])->name('buku.update');
     Route::get('/buku/search',[BukuController::class, 'search'])->name('buku.search');
+
+    // // Route untuk menghapus gambar gallery
+    // Route::delete('/buku/{id}/gallery', [BukuController::class, 'deleteGallery'])->name('buku.gallery.delete');
+
 });
+
 
 
 

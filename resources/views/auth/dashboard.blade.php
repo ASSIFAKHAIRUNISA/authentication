@@ -37,28 +37,34 @@
                             </tr>
                         </thead>
                         <tbody>
-
                             @foreach($data_buku as $index => $buku)
                                 <tr>
                                     <td>{{ $index+1 }}</td>
-                                    <td>{{ $buku->judul }}</td>
+                                    <td>
+                                        <div style="display: flex; align-items: center;">
+                                            @if ($buku->filepath)
+                                                <img src="{{ asset($buku->filepath) }}" alt="" style="width: 50px; height: 50px; margin-right: 10px; object-fit: cover;">
+                                            @endif
+                                            <span>{{ $buku->judul }}</span>
+                                        </div>
+                                    </td>
                                     <td>{{ $buku->penulis }}</td>
                                     <td>{{ "Rp. ".number_format($buku->harga, 2, ',', '.') }}</td>
                                     <td>{{ \Carbon\Carbon::parse($buku->tgl_terbit)->format('d-m-Y') }}</td>
                                     <td>
-                                        <form action="{{ route('buku.destroy', $buku->id) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button onclick="return confirm('Yakin mau di hapus?')" type="submit"
-                                            class="btn btn-danger">Hapus</button>
-                                        </form>
-                                    </td>
-                                    <td>
-                                        <!-- Tombol Edit Buku -->
-                                        <form action="{{ route('buku.edit', $buku->id) }}" method="PUT">
-                                            <button type="submit"
-                                            class="btn btn-warning">Edit</button>
-                                        </form>
+                                        <div class="d-flex align-items-center">
+                                            <!-- Form Hapus Buku -->
+                                            <form action="{{ route('buku.destroy', $buku->id) }}" method="POST" style="margin-right: 5px;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button onclick="return confirm('Yakin mau di hapus?')" type="submit" class="btn btn-danger">Hapus</button>
+                                            </form>
+
+                                            <!-- Tombol Edit Buku -->
+                                            <form action="{{ route('buku.edit', $buku->id) }}" method="GET">
+                                                <button type="submit" class="btn btn-warning">Edit</button>
+                                            </form>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach
