@@ -21,4 +21,10 @@ class Buku extends Model
         // Ubah foreign key menjadi 'buku_id'
         return $this->hasMany(Gallery::class, 'buku_id');
     }
+
+    public function reviews()
+    {
+    return $this->hasMany(Review::class);
+    }
+
 }
