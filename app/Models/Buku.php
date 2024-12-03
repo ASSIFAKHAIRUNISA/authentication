@@ -12,9 +12,11 @@ class Buku extends Model
 
     protected $table = 'buku';
 
-    protected $fillable = ['id', 'judul', 'penulis', 'harga', 'tgl_terbit', 'created_at', 'updated_at', 'filename', 'filepath'];
+    protected $fillable = ['id', 'judul', 'penulis', 'harga', 'diskon', 'tgl_terbit', 'created_at', 'updated_at', 'filename', 'filepath'];
 
     protected $dates = ['tgl_terbit'];
+
+    // protected $harga_diskon = $harga - (($diskon*$harga)/100);
 
     public function galleries(): HasMany
     {
@@ -22,7 +24,7 @@ class Buku extends Model
         return $this->hasMany(Gallery::class, 'buku_id');
     }
 
-    public function reviews()
+    public function reviews(): HasMany
     {
     return $this->hasMany(Review::class);
     }

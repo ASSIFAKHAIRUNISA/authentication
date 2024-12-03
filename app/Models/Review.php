@@ -9,7 +9,7 @@ class Review extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['book_id', 'user_id', 'review', 'tags'];
+    protected $fillable = ['buku_id', 'user_id', 'review', 'tags'];
 
     // Cast "tags" sebagai array
     protected $casts = [
@@ -19,7 +19,7 @@ class Review extends Model
     // Relasi dengan buku
     public function buku()
     {
-        return $this->belongsTo(Buku::class);
+        return $this->belongsTo(Buku::class,'buku_id');
     }
 
     // Relasi dengan user (reviewer)

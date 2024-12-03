@@ -57,6 +57,10 @@
                                     </div>
                                 </td>
                                 <td>{{ $buku->penulis }}</td>
+
+                                {{-- kode untuk menampilkan harga setelah diskon --}}
+                                {{-- <td>{{ "Rp. ".number_format($harga_diskon, 2, ',', '.') }}</td> --}}
+
                                 <td>{{ "Rp. ".number_format($buku->harga, 2, ',', '.') }}</td>
                                 <td>{{ \Carbon\Carbon::parse($buku->tgl_terbit)->format('d-m-Y') }}</td>
                                 <td>
@@ -72,6 +76,9 @@
                                         <form action="{{ route('buku.edit', $buku->id) }}" method="GET">
                                             <button type="submit" class="btn btn-warning">Edit</button>
                                         </form>
+
+                                        <a href="{{ route('reviews.show', $buku->id) }}" class="btn btn-info">Lihat Review</a>
+
                                     </div>
                                 </td>
                             </tr>
@@ -80,10 +87,6 @@
                 </table>
 
                 <div>{{ $data_buku->links('pagination::bootstrap-5') }}</div>
-                <div><strong>Jumlah Buku: {{$jumlah_buku}}</strong></div>
-
-                <!-- Menampilkan total harga semua buku -->
-                <p>Total Harga Semua Buku: Rp. {{ number_format($total_harga, 2, ',', '.') }}</p>
 
                 <div class="row mt-4">
                     <div class="col-md-6">

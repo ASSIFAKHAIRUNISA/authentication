@@ -56,6 +56,11 @@
                             <div class="me-2 mb-2">
                                 <img src="{{ asset($gallery->path) }}" alt="Gallery Image" width="100" class="img-thumbnail">
 
+                                <!--Keterangan Gallery-->
+                                <div class="keterangan">
+                                    <p>{{ $gallery->keterangan }}</p>
+                                </div>
+
                                 <div class="form-check mt-1">
                                     <input type="checkbox" class="form-check-input" name="delete_gallery[]" value="{{ $gallery->id }}" id="deleteGallery{{ $gallery->id }}">
                                     <label class="form-check-label text-danger" for="deleteGallery{{ $gallery->id }}">Hapus</label>

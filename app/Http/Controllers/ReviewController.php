@@ -11,15 +11,15 @@ class ReviewController extends Controller
     // Menampilkan halaman untuk membuat review buku
     public function create()
     {
-        $books = Buku::all(); // Mengambil daftar buku
-        return view('reviews.create', compact('books'));
+        $buku = Buku::all(); // Mengambil daftar buku
+        return view('reviews.create', compact('buku'));
     }
 
     // Menyimpan review yang dikirimkan melalui form
     public function store(Request $request)
     {
         $request->validate([
-            'book_id' => 'required|exists:books,id',
+            'buku_id' => 'required|exists:buku,id',
             'review' => 'required|string',
             'tags' => 'nullable|array',
             'tags.*' => 'string',
@@ -27,7 +27,7 @@ class ReviewController extends Controller
 
         // Menyimpan review
         Review::create([
-            'book_id' => $request->book_id,
+            'buku_id' => $request->buku_id,
             'user_id' => auth()->id(), // Mengambil ID pengguna yang sedang login
             'review' => $request->review,
             'tags' => $request->tags, // Menyimpan tag dalam format JSON
@@ -39,20 +39,28 @@ class ReviewController extends Controller
     // Menampilkan review berdasarkan reviewer
     public function showByReviewer($userId)
     {
-        $reviews = Review::where('user_id', $userId)->with('book')->get(); // Ambil semua review oleh reviewer tertentu
+        $reviews = Review::where('user_id', $userId)->with('buku')->get();
         return view('reviews.reviewer', compact('reviews'));
     }
 
-    // Menampilkan review berdasarkan tag
-    public function showByTag($tag)
+    public function showByTag($tagName)
     {
-        $reviews = Review::whereJsonContains('tags', $tag)->with('book')->get(); // Ambil review yang mengandung tag tertentu
+        $reviews = Review::whereJsonContains('tags', $tagName)->with('buku')->get();
         return view('reviews.tag', compact('reviews'));
     }
+
 
     public function __construct()
     {
         $this->middleware(['auth', 'role:admin,internal_reviewer']);
+    }
+
+    public function show($bukuId)
+    {
+        $buku = Buku::findOrFail($bukuId); // Menemukan buku berdasarkan ID
+        $reviews = $buku->reviews; // Mendapatkan semua review untuk buku tersebut
+
+        return view('reviews.show', compact('buku', 'reviews')); // Mengirimkan data buku dan review ke view
     }
 
 }

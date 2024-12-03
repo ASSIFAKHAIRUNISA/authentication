@@ -22,7 +22,8 @@ Route::controller(LoginRegisterController::class)->group(function() {
     Route::post('/authenticate', 'authenticate')->name('authenticate');
     Route::post('/logout', 'logout')->name('logout');
 });
-// middleware auth untuk halaman dashboard dan route buku
+
+// Middleware auth untuk halaman dashboard dan route buku
 Route::middleware(['auth'])->group(function() {
     Route::get('/dashboard', [BukuController::class, 'index'])->name('dashboard');
 
@@ -40,10 +41,9 @@ Route::middleware(['auth', 'role:admin,internal_reviewer'])->group(function () {
     Route::post('/reviews/store', [ReviewController::class, 'store'])->name('reviews.store');
 });
 
-Route::get('/reviews/reviewer/{user}', [ReviewController::class, 'showByReviewer'])->name('reviews.byReviewer');
-Route::get('/reviews/tag/{tag}', [ReviewController::class, 'showByTag'])->name('reviews.byTag');
-// Route::middleware(['auth', 'role:admin,internal_reviewer'])->get('/formulir-review-buku', [ReviewController::class, 'showForm'])->name('review.form');
+// Rute untuk melihat review berdasarkan buku
+Route::get('reviews/{bukuId}', [ReviewController::class, 'show'])->name('reviews.show');
 
-
-
-
+// Rute untuk melihat review berdasarkan reviewer dan tag
+Route::get('/reviews/reviewer/{userId}', [ReviewController::class, 'showByReviewer'])->name('reviews.byReviewer');
+Route::get('/reviews/tag/{tagName}', [ReviewController::class, 'showByTag'])->name('reviews.byTag');

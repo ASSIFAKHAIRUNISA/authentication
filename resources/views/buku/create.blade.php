@@ -18,6 +18,8 @@
                 <div>Judul <input type="text" name="judul" class="form-control"></div>
                 <div>Penulis <input type="text" name="penulis" class="form-control"></div>
                 <div>Harga <input type="text" name="harga" class="form-control"></div>
+                {{-- input diskon --}}
+                <div>Diskon <input type="text" name="diskon" class="form-control"></div>
                 <div>Tanggal Terbit
                     <input type="text" name="tanggal_terbit" class="form-control date">
                 </div>
@@ -29,6 +31,12 @@
                 <div class="mb-3">
                     <label class="form-label">Upload Gallery Images</label>
                     <input type="file" name="gallery[]" class="form-control" accept="image/*" multiple>
+                </div>
+
+                <!-- Textarea untuk keterangan gallery -->
+                <div class="mb-3">
+                    <label for="keterangan" class="form-label">Tulis Keterangan Gallery</label>
+                    <textarea name="keterangan" id="keterangan" class="form-control" rows="5" required></textarea>
                 </div>
 
                 <button type="submit" class="btn btn-primary mt-3">Simpan</button>

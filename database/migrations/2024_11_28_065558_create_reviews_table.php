@@ -4,19 +4,22 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateReviewsTable extends Migration
 {
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->enum('level', ['admin', 'user', 'internal_reviewer'])->default('user')->change();
+        Schema::create('reviews', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('buku_id')->constrained('buku')->onDelete('cascade'); // Relasi ke tabel buku
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // Relasi ke tabel users
+            $table->text('review');
+            $table->json('tags')->nullable();
+            $table->timestamps();
         });
     }
 
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->enum('level', ['admin', 'user'])->default('user')->change();
-        });
+        Schema::dropIfExists('reviews');
     }
-};
+}

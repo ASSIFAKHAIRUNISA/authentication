@@ -68,6 +68,7 @@ class BukuController extends Controller
         'harga' => 'required|numeric',
         'tanggal_terbit' => 'required|date',
         'thumbnail' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
+        'keterangan' => 'required|string', // menambahkan keterangan
         'gallery.*' => 'nullable|image|mimes:jpeg,jpg,png|max:2048' // Validasi untuk setiap file dalam array gallery
     ]);
 
@@ -107,6 +108,7 @@ class BukuController extends Controller
                 Gallery::create([
                     'nama_galeri' => $fileName,
                     'path' => '/storage/uploads/' . $fileName,
+                    'keterangan' => $request->keterangan, //Menambah keterangan galeri
                     'foto' => $fileName,
                     'buku_id' => $buku->id
                 ]);
@@ -148,6 +150,7 @@ class BukuController extends Controller
         'tgl_terbit' => 'required|date',
         'thumbnail' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
         'gallery.*' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
+        'keterangan' => 'required|string', // menambahkan keterangan
         'delete_gallery' => 'nullable|array' // Tambahkan validasi untuk galeri yang ingin dihapus
     ]);
 
@@ -199,6 +202,7 @@ class BukuController extends Controller
                     'nama_galeri' => $fileName,
                     'path' => '/storage/uploads/' . $fileName,
                     'foto' => $fileName,
+                    'keterangan' => $request->keterangan, //Menambah keterangan galeri
                     'buku_id' => $id
                 ]);
             }
